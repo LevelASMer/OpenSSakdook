@@ -1,7 +1,11 @@
 # Default Commands
+import os
 import sqlite3
 import time
 from random import random
+from twitch import TwitchClient
+
+client = TwitchClient(os.environ['CLIENT_ID'], os.environ['TOKEN'])
 
 DATABASE = './ssakdook.db'
 
@@ -14,6 +18,11 @@ def createdb():
         c.execute("INSERT OR IGNORE INTO commands VALUES('!per', '확률: $percent', 5)")
         c.execute("INSERT OR IGNORE INTO commands VALUES('!time', '현재 시간: $time', 5)")
         c.execute("INSERT OR IGNORE INTO commands VALUES('!bbang', '$nick 으악', 5)")
+        c.execute("INSERT OR IGNORE INTO commands VALUES('!channel', '현재 채널: $channel', 5)")
+        c.execute("INSERT OR IGNORE INTO commands VALUES('!followers', '현재 이 채널의 팔로워: $followers', 5)")
+        c.execute("INSERT OR IGNORE INTO commands VALUES('!title', '이 채널의 제목: $title', 5)")
+        c.execute("INSERT OR IGNORE INTO commands VALUES('!views', '이 채널의 총 시청자: $views', 5)")
+        c.execute("INSERT OR IGNORE INTO commands VALUES('!subscriber', '이 채널의 총 구독자: $subscriberCount', 5)")
         con.commit()
     except con.Error as e:
         print(e)
@@ -35,6 +44,8 @@ def convertvalue(command, arg):
     if "$time" in fetch[1]: convert = fetch[1].replace("$time", gettime())
     if "$nick" in fetch[1]: convert = fetch[1].replace("$nick", arg.user)
     if "$channel" in fetch[1]: convert = fetch[1].replace("$channel", arg.channel)
+    if "$followers" in fetch[1]: convert = fetch[1].replace("$followers", getfollowers(arg.channel))
+    if "$subscriberCount" in fetch[1]: convert = fetch[1].replace("$subscriberCount", getsubscribers(arg.channel))
     return convert
 
 def getcommand(context):
@@ -49,6 +60,34 @@ def getcommand(context):
         if value != None:
             con.close()
             return value[0]
+
+def getsubscribers(userid):
+    channel = client.search.channels(userid, limit=1, offset=0)[0]
+    try:
+        info = client.channels.get_subscribers(channel['id'], limit=1, offset=0)
+        return str(info[0]['_total'])
+    except:
+        return str("0")
+
+def gettitle(userid):
+    channel = client.search.channels(userid, limit=1, offset=0)[0]
+    if channel is None:
+        return str("")
+    return str(channel['status'])
+
+def getgame(userid):
+    channel = client.search.channels(userid, limit=1, offset=0)[0]
+    if channel is None:
+        return str("")
+    return str(channel['game'])
+
+def getfollowers(userid):
+    channel = client.search.channels(userid, limit=1, offset=0)[0]
+    return str(channel['followers'])
+
+def gettotalview(userid):
+    channel = client.search.channels(userid, limit=1, offset=0)[0]
+    return str(channel['views'])
 
 def gettime():
     now = time.gmtime(time.time())
