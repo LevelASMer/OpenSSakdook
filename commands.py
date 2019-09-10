@@ -9,32 +9,12 @@ client = TwitchClient(os.environ['CLIENT_ID'], os.environ['TOKEN'])
 
 DATABASE = './ssakdook.db'
 
-def createdb():
-    try:
-        con = sqlite3.connect(DATABASE)
-        c = con.cursor()
-
-        c.execute('CREATE TABLE IF NOT EXISTS commands (command text PRIMARY KEY, description text, cooltime int)')
-        c.execute("INSERT OR IGNORE INTO commands VALUES('!per', '확률: $percent', 5)")
-        c.execute("INSERT OR IGNORE INTO commands VALUES('!time', '현재 시간: $time', 5)")
-        c.execute("INSERT OR IGNORE INTO commands VALUES('!bbang', '$nick 으악', 5)")
-        c.execute("INSERT OR IGNORE INTO commands VALUES('!channel', '현재 채널: $channel', 5)")
-        c.execute("INSERT OR IGNORE INTO commands VALUES('!followers', '현재 이 채널의 팔로워: $followers', 5)")
-        c.execute("INSERT OR IGNORE INTO commands VALUES('!title', '이 채널의 제목: $title', 5)")
-        c.execute("INSERT OR IGNORE INTO commands VALUES('!views', '이 채널의 총 시청자: $views', 5)")
-        c.execute("INSERT OR IGNORE INTO commands VALUES('!subscriber', '이 채널의 총 구독자: $subscriberCount', 5)")
-        con.commit()
-    except con.Error as e:
-        print(e)
-    finally:
-        con.close()
-
 def convertvalue(command, arg):
     com = (command,)
     con = sqlite3.connect(DATABASE)
     c = con.cursor()
 
-    c.execute('SELECT * FROM commands WHERE command = ?', com)
+    c.execute('SELECT command, description, cooltime FROM commands WHERE command = ?', com)
     fetch = c.fetchone()
     con.close()
 
@@ -57,8 +37,8 @@ def getcommand(context):
 
         c.execute('SELECT command FROM commands WHERE command = ?', com)
         value = c.fetchone()
+        con.close()
         if value != None:
-            con.close()
             return value[0]
 
 def getsubscribers(userid):

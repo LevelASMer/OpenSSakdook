@@ -1,0 +1,17 @@
+<div metal:use-macro="layout">
+  <div metal:fill-slot="content">
+    <h1>Index</h1>
+    <pre>             ,-.
+    ,     ,-.   ,-.
+   / \   (   )-(   )
+   \ |  ,.&gt;-(   )-&lt;
+    \|,' (   )-(   )
+     Y ___`-'   `-'
+     |/__/   `-'
+     |
+     |
+     |    -hrr-
+  ___|_____________
+</pre>
+  </div>
+</div>

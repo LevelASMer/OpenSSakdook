@@ -1,0 +1,53 @@
+.control {
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  color: #000;
+  margin: 0 0 10px 0;
+  padding: 8px;
+  transition: box-shadow .25s;
+}
+
+.control:focus {
+  box-shadow: 0 0 5px #008bff;
+  border: 1px solid #005fff;
+}
+
+.button {
+  background-color: #008bff;
+  border: 1px solid #005fff;
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px 20px;
+  transition: background-color .25s;
+}
+
+.button:hover {
+  background-color: #31a1ff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.button:active {
+  background-color: #2e84cc;
+  cursor: pointer;
+}
+
+.edit,
+.delete {
+	font-size: 12px;
+	padding: 3px 5px;
+}
+
+.delete {
+	background-color: #ea3131;
+	border-color: #c73434;
+}
+
+.delete:hover {
+	background-color: #ff6d5c;
+}
+
+.delete:active {
+	background-color: #db4d3d;
+}

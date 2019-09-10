@@ -1,0 +1,14 @@
+<div metal:use-macro="layout">
+  <div metal:fill-slot="content">
+    <h1>Edit Timers</h1>
+    <table>
+      <tbody>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Cooltime</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
