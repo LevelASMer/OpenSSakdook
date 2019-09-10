@@ -77,7 +77,52 @@ def command_add(request):
 
 @view_config(route_name='command_edit', renderer='template/edit_command.pt')
 def command_edit(request):
-    return {"layout": site_layout(), }
+    id = request.matchdict['id']
+    schema = CommandSchema().bind(request=request)
+
+    # Create a styled button with some extra Bootstrap 3 CSS classes
+    process_btn = deform.form.Button(name='process')
+    form = deform.form.Form(schema, buttons=(process_btn,))
+
+    # User submitted this form
+    if request.method == "POST":
+        if 'process' in request.POST:
+            try:
+                appstruct = form.validate(request.POST.items())
+
+                # Save form data from appstruct
+                con = sqlite3.connect(DATABASE)
+                c = con.cursor()
+
+                values = (appstruct["command"], appstruct["description"], appstruct["cooltime"], id, )
+                c.execute('UPDATE commands SET command=?, description=?, cooltime=? WHERE id=?', values)
+                con.commit()
+                con.close()
+
+                # Thank user and take him/her to the next page
+                request.session.flash('Thank you for the submission.')
+
+                # Redirect to the page shows after succesful form submission
+                return HTTPFound("/command/list/1")
+            except deform.exception.ValidationFailure as e:
+                # Render a form version where errors are visible next to the fields,
+                # and the submitted values are posted back
+                con.close()
+                rendered_form = e.render()
+    else:
+        # Render a form with initial default values
+        rendered_form = form.render()
+
+    # Get data from database
+    con = sqlite3.connect(DATABASE)
+    c = con.cursor()
+
+    values = (id, )
+    c.execute('SELECT command, description, cooltime FROM commands WHERE id=?', values)
+    fetch = c.fetchall()
+    con.close()
+
+    return {"layout": site_layout(), "rendered_form": rendered_form, "id": id, "command": fetch[0], }
 
 @view_config(route_name='timer', renderer='template/timers.pt')
 def timer(request):
