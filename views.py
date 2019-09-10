@@ -2,6 +2,7 @@
 import sqlite3
 import colander
 import deform
+import time
 from deform.widget import TextAreaWidget
 from pyramid.httpexceptions import HTTPFound
 from pyramid.renderers import get_renderer
@@ -17,7 +18,7 @@ class CommandSchema(colander.MappingSchema):
 
 class DeleteSchema(colander.MappingSchema):
     pass
-    
+
 # Global Layout
 def site_layout():
     renderer = get_renderer("template/global_layout.pt")
@@ -57,8 +58,8 @@ def command_add(request):
                 con = sqlite3.connect(DATABASE)
                 c = con.cursor()
 
-                values = (appstruct["command"], appstruct["description"], appstruct["cooltime"], )
-                c.execute('INSERT OR IGNORE INTO commands (command, description, cooltime) VALUES(?, ?, ?)', values)
+                values = (appstruct["command"], appstruct["description"], appstruct["cooltime"], time.time(), )
+                c.execute('INSERT OR IGNORE INTO commands (command, description, cooltime, latest_use) VALUES(?, ?, ?, ?)', values)
                 con.commit()
                 con.close()
 
@@ -139,7 +140,6 @@ def command_delete(request):
         if 'process' in request.POST:
             try:
                 appstruct = form.validate(request.POST.items())
-                print("PASS")
                 # Delete form data from appstruct
                 con = sqlite3.connect(DATABASE)
                 c = con.cursor()

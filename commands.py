@@ -14,19 +14,27 @@ def convertvalue(command, arg):
     con = sqlite3.connect(DATABASE)
     c = con.cursor()
 
-    c.execute('SELECT command, description, cooltime FROM commands WHERE command = ?', com)
+    c.execute('SELECT command, description, cooltime, latest_use FROM commands WHERE command = ?', com)
     fetch = c.fetchone()
-    con.close()
-
     convert = ''
+    if fetch is not None:
+        if time.time() > float(fetch[2]) + float(fetch[3]):
+            c.execute('UPDATE commands SET latest_use=? WHERE command = ?', (time.time(), command, ))
+            con.commit()
+            con.close()
 
-    if "$percent" in fetch[1]: convert = fetch[1].replace("$percent", getpercent())
-    if "$time" in fetch[1]: convert = fetch[1].replace("$time", gettime())
-    if "$nick" in fetch[1]: convert = fetch[1].replace("$nick", arg.user)
-    if "$channel" in fetch[1]: convert = fetch[1].replace("$channel", arg.channel)
-    if "$followers" in fetch[1]: convert = fetch[1].replace("$followers", getfollowers(arg.channel))
-    if "$subscriberCount" in fetch[1]: convert = fetch[1].replace("$subscriberCount", getsubscribers(arg.channel))
-    return convert
+            if "$percent" in fetch[1]: convert = fetch[1].replace("$percent", getpercent())
+            if "$time" in fetch[1]: convert = fetch[1].replace("$time", gettime())
+            if "$nick" in fetch[1]: convert = fetch[1].replace("$nick", arg.user)
+            if "$channel" in fetch[1]: convert = fetch[1].replace("$channel", arg.channel)
+            if "$followers" in fetch[1]: convert = fetch[1].replace("$followers", getfollowers(arg.channel))
+            if "$subscriberCount" in fetch[1]: convert = fetch[1].replace("$subscriberCount", getsubscribers(arg.channel))
+            return convert
+        else:
+            con.close()
+            return convert
+    else:
+        con.close()
 
 def getcommand(context):
     split = context.split(" ")
@@ -38,7 +46,7 @@ def getcommand(context):
         c.execute('SELECT command FROM commands WHERE command = ?', com)
         value = c.fetchone()
         con.close()
-        if value != None:
+        if value is not None:
             return value[0]
 
 def getsubscribers(userid):

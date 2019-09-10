@@ -30,8 +30,7 @@ def on_connect():
 def on_message(message):
     parse_context = message.content
     parse_command = ''
-    db.savelog(message.user, message.content)
-    if commands.getcommand(parse_context) != None:
+    if commands.getcommand(parse_context) is not None:
         if commands.getcommand(parse_context) in parse_context:
             parse_command = commands.getcommand(parse_context)
             bot.send_message(message.channel, commands.convertvalue(parse_command, message))
