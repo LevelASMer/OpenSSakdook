@@ -49,6 +49,7 @@ if __name__ == '__main__':
         config.add_route('command', '/command/list/{id}')
         config.add_route('command_add', '/command/add')
         config.add_route('command_edit', '/command/edit/{id}')
+        config.add_route('command_delete', '/command/delete/{id}')
         config.add_route('timer', '/timer/list/{id}')
         config.add_route('log', '/log/list/{id}')
         config.scan('views')

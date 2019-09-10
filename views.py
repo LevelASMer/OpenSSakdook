@@ -15,6 +15,9 @@ class CommandSchema(colander.MappingSchema):
     description = colander.SchemaNode(colander.String(),  widget=TextAreaWidget())
     cooltime = colander.SchemaNode(colander.String(), widget=TextAreaWidget())
 
+class DeleteSchema(colander.MappingSchema):
+    pass
+    
 # Global Layout
 def site_layout():
     renderer = get_renderer("template/global_layout.pt")
@@ -67,7 +70,6 @@ def command_add(request):
             except deform.exception.ValidationFailure as e:
                 # Render a form version where errors are visible next to the fields,
                 # and the submitted values are posted back
-                con.close()
                 rendered_form = e.render()
     else:
         # Render a form with initial default values
@@ -107,7 +109,6 @@ def command_edit(request):
             except deform.exception.ValidationFailure as e:
                 # Render a form version where errors are visible next to the fields,
                 # and the submitted values are posted back
-                con.close()
                 rendered_form = e.render()
     else:
         # Render a form with initial default values
@@ -123,6 +124,44 @@ def command_edit(request):
     con.close()
 
     return {"layout": site_layout(), "rendered_form": rendered_form, "id": id, "command": fetch[0], }
+
+@view_config(route_name='command_delete', renderer='template/delete_command.pt')
+def command_delete(request):
+    id = request.matchdict['id']
+    schema = DeleteSchema().bind(request=request)
+
+    # Create a styled button with some extra Bootstrap 3 CSS classes
+    process_btn = deform.form.Button(name='process')
+    form = deform.form.Form(schema, buttons=(process_btn,))
+
+    # User submitted this form
+    if request.method == "POST":
+        if 'process' in request.POST:
+            try:
+                appstruct = form.validate(request.POST.items())
+                print("PASS")
+                # Delete form data from appstruct
+                con = sqlite3.connect(DATABASE)
+                c = con.cursor()
+
+                values = (id, )
+                c.execute('DELETE FROM commands WHERE id=?', values)
+                con.commit()
+                con.close()
+
+                request.session.flash('Goodbye.')
+
+                # Redirect to the page shows after succesful form submission
+                return HTTPFound("/command/list/1")
+            except deform.exception.ValidationFailure as e:
+                # Render a form version where errors are visible next to the fields,
+                # and the submitted values are posted back
+                rendered_form = e.render()
+    else:
+        # Render a form with initial default values
+        rendered_form = form.render()
+
+    return {"layout": site_layout(), "rendered_form": rendered_form, "id": id, }
 
 @view_config(route_name='timer', renderer='template/timers.pt')
 def timer(request):

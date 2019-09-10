@@ -1,17 +1,10 @@
 <div metal:use-macro="layout">
   <div metal:fill-slot="content">
-    <h1>Index</h1>
-    <pre>             ,-.
-    ,     ,-.   ,-.
-   / \   (   )-(   )
-   \ |  ,.&gt;-(   )-&lt;
-    \|,' (   )-(   )
-     Y ___`-'   `-'
-     |/__/   `-'
-     |
-     |
-     |    -hrr-
-  ___|_____________
-</pre>
+    <form method="post" action="/command/delete/${id}">
+      <h1>Delete Commannd</h1>
+      <h2>Are you sure?</h2>
+      <button type="submit" id="process" name="process" class="button delete">Delete</button>
+      <a href="javascript:history.back()" class="button">Back</a>
+    </form>
   </div>
 </div>

@@ -15,8 +15,8 @@
           <td>${commands[2]}</td>
           <td>${commands[3]}</td>
           <td>
-            <a class="button edit" href="/command/edit/${commands[0]}">Edit</a>
-            <a class="button delete" href="/command/delete/${commands[0]}">Delete</a>
+            <a class="button small" href="/command/edit/${commands[0]}">Edit</a>
+            <a class="button delete small" href="/command/delete/${commands[0]}">Delete</a>
           </td>
         </tr>
       </tbody>
