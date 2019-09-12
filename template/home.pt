@@ -1,17 +1,104 @@
 <div metal:use-macro="layout">
   <div metal:fill-slot="content">
     <h1>Index</h1>
-    <pre>             ,-.
-    ,     ,-.   ,-.
-   / \   (   )-(   )
-   \ |  ,.&gt;-(   )-&lt;
-    \|,' (   )-(   )
-     Y ___`-'   `-'
-     |/__/   `-'
-     |
-     |
-     |    -hrr-
-  ___|_____________
+    <pre>    _    _
+   (_)  / )
+     | (_/
+    _+/
+   //|\
+  // | )
+ (/  |/      s-v
 </pre>
+    <h1>Settings</h1>
+    <form method="POST" action="/">
+      <fieldset>
+        <legend>
+          <h2>Filter words</h2>
+        </legend>
+        <input type="checkbox" name="filter_word_enable" checked=""> Enable
+        <p></p>
+        <h3>Timeout</h3>
+        <input type="text" name="filter_word_timeout" class="control" placeholder="Enter your timeout" value="60">
+        <h3>Alert</h3>
+        <input type="checkbox" name="filter_word_alert_enable" checked=""> Enable
+        <p></p>
+        <input type="text" name="filter_word_alert" class="control" placeholder="Enter your alert message" value="">
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h2>Filter URLs</h2>
+        </legend>
+        <input type="checkbox" name="filter_url_enable" checked=""> Enable
+        <p></p>
+        <h3>Timeout</h3>
+        <input type="text" name="filter_url_timeout" class="control" placeholder="Enter your timeout" value="60">
+        <h3>Alert</h3>
+        <input type="checkbox" name="filter_url_alert_enable" checked=""> Enable
+        <p></p>
+        <input type="text" name="filter_url_alert" class="control" placeholder="Enter your alert message" value="">
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h2>Filter emoticons</h2>
+        </legend> 
+        <input type="checkbox" name="filter_emoticon_enable" checked=""> Enable
+        <p></p>
+        <h3>Timeout</h3>
+        <input type="text" name="filter_emoticon_timeout" class="control" placeholder="Enter your timeout" value="60">
+        <h3>Max emoticons</h3>
+        <input type="text" name="filter_emoticon_max" class="control" placeholder="Enter your max emoticons" value="3">
+        <h3>Alert</h3>
+        <input type="checkbox" name="filter_emoticon_alert_enable" checked=""> Enable
+        <p></p>
+        <input type="text" name="filter_emoticon_alert" class="control" placeholder="Enter your alert message" value="">
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h2>Filter symbols</h2>
+        </legend> 
+        <input type="checkbox" name="filter_symbol_enable" checked=""> Enable
+        <p></p>
+        <h3>Timeout</h3>
+        <input type="text" name="filter_symbol_timeout" class="control" placeholder="Enter your timeout" value="60">
+        <h3>Max symbols</h3>
+        <input type="text" name="filter_symbol_max" class="control" placeholder="Enter your max symbols" value="8">
+        <h3>Alert</h3>
+        <input type="checkbox" name="filter_symbol_alert_enable" checked=""> Enable
+        <p></p>
+        <input type="text" name="filter_symbol_alert" class="control" placeholder="Enter your alert message" value="">
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h2>Filter repeat messages</h2>
+        </legend>
+        <input type="checkbox" name="filter_repeat_enable" checked=""> Enable
+        <p></p>
+        <h3>Timeout</h3>
+        <input type="text" name="filter_repeat_timeout" class="control" placeholder="Enter your timeout" value="60">
+        <h3>Similarity percentage</h3>
+        <input type="text" name="filter_repeat_max" class="control" placeholder="Enter your percentage" value="80">
+        <h3>Alert</h3>
+        <input type="checkbox" name="filter_repeat_alert_enable" checked=""> Enable
+        <p></p>
+        <input type="text" name="filter_repeat_alert" class="control" placeholder="Enter your alert message" value="">
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h2>Filter color message</h2>
+        </legend>
+        <input type="checkbox" name="filter_color_enable" checked=""> Enable
+        <p></p>
+        <h3>Timeout</h3>
+        <input type="text" name="filter_color_timeout" class="control" placeholder="Enter your timeout" value="60">
+        <h3>Alert</h3>
+        <input type="checkbox" name="filter_color_alert_enable" checked=""> Enable
+        <p></p>
+        <input type="text" name="filter_color_alert" class="control" placeholder="Enter your alert message" value="">
+      </fieldset>
+      <p></p>
+      <p>
+        <button type="submit" id="process" name="process" class="button">Submit</button>
+      </p>
+    </form>
   </div>
 </div>

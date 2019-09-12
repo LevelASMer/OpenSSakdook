@@ -1,0 +1,25 @@
+<div metal:use-macro="layout">
+  <div metal:fill-slot="content">
+    <h1>Filter</h1>
+    <h2>Whitelisted URLs</h2>
+    <p><a href="/filter/add_url">Add URL</a></p>
+    <table>
+      <tbody>
+        <tr>
+          <th>URL</th>
+          <th>Edit</th>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Blacklisted words</h2>
+    <p><a href="/filter/add_word">Add word</a></p>
+    <table>
+      <tbody>
+        <tr>
+          <th>Word</th>
+          <th>Edit</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

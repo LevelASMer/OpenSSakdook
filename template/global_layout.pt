@@ -17,7 +17,7 @@
         <ul>
           <li><a href="/command/list/1">Edit <strong>Commands</strong></a></li>
           <li><a href="/timer/list/1">Edit <strong>Timers</strong></a></li>
-          <li><a href="/log/list/1">Config <strong>Settings</strong></a></li>
+          <li><a href="/filter/list/1">Edit <strong>Filters</strong></a></li>
         </ul>
       </header>
       <section>
