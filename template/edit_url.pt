@@ -1,0 +1,12 @@
+<div metal:use-macro="layout">
+  <div metal:fill-slot="content">
+    <form method="post" action="/filter/edit_url/${id}">
+      <h1>Edit URL</h1>
+      <p><a href="javascript:history.back()">Back to edit filters</a></p>
+      <h2>URL</h2>
+      <input type="text" name="url" class="control" placeholder="Enter your URL" value="${url[0]}">
+      <p></p>
+      <button type="submit" name="process" class="button">Submit</button>
+    </form>
+  </div>
+</div>

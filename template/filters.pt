@@ -9,6 +9,13 @@
           <th>URL</th>
           <th>Edit</th>
         </tr>
+        <tr tal:repeat="urls url">
+          <td>${urls[1]}</td>
+          <td>
+            <a class="button small" href="/filter/edit_url/${urls[0]}">Edit</a>
+            <a class="button delete small" href="/filter/delete_url/${urls[0]}">Delete</a>
+          </td>
+        </tr>
       </tbody>
     </table>
     <h2>Blacklisted words</h2>
@@ -18,6 +25,13 @@
         <tr>
           <th>Word</th>
           <th>Edit</th>
+        </tr>
+        <tr tal:repeat="words word">
+          <td>${words[1]}</td>
+          <td>
+            <a class="button small" href="/filter/edit_word/${words[0]}">Edit</a>
+            <a class="button delete small" href="/filter/delete_word/${words[0]}">Delete</a>
+          </td>
         </tr>
       </tbody>
     </table>
