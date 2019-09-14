@@ -1,0 +1,39 @@
+<div metal:use-macro="layout">
+  <div metal:fill-slot="content">
+    <h1>Filter</h1>
+    <h2>Whitelisted URLs</h2>
+    <p><a href="/filter/add_url">Add URL</a></p>
+    <table>
+      <tbody>
+        <tr>
+          <th>URL</th>
+          <th>Edit</th>
+        </tr>
+        <tr tal:repeat="urls url">
+          <td>${urls[1]}</td>
+          <td>
+            <a class="button small" href="/filter/edit_url/${urls[0]}">Edit</a>
+            <a class="button delete small" href="/filter/delete_url/${urls[0]}">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Blacklisted words</h2>
+    <p><a href="/filter/add_word">Add word</a></p>
+    <table>
+      <tbody>
+        <tr>
+          <th>Word</th>
+          <th>Edit</th>
+        </tr>
+        <tr tal:repeat="words word">
+          <td>${words[1]}</td>
+          <td>
+            <a class="button small" href="/filter/edit_word/${words[0]}">Edit</a>
+            <a class="button delete small" href="/filter/delete_word/${words[0]}">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

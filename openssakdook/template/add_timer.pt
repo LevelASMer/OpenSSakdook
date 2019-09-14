@@ -1,0 +1,15 @@
+<div metal:use-macro="layout">
+  <div metal:fill-slot="content">
+    <form method="post" action="/timer/add">
+      <h1>Add Timer</h1>
+      <p><a href="javascript:history.back()">Back to edit timers</a></p>
+      <h2>Name</h2>
+      <input type="text" name="command" class="control" placeholder="Enter your name">
+      <h2>Description</h2>
+      <textarea name="description" class="control" placeholder="Enter your description"></textarea>
+      <h2>Cooltime</h2>
+      <p><input type="range" name="cooltime" min="1" max="60" value="5"></p>
+      <button type="submit" name="process" class="button">Submit</button>
+    </form>
+  </div>
+</div>

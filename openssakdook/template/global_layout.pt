@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:tal="http://xml.zope.org/namespaces/tal" metal:define-macro="layout">
+  <head>
+    <meta charset="utf-8">
+    <title>OpenSSakdook</title>
+    <link rel="stylesheet" href="/static/stylesheets/styles.css">
+    <link rel="stylesheet" href="/static/stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="/static/stylesheets/input_styles.css">
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="/">OpenSSakdook</a></h1>
+        <p>Open Source version of SSakdook</p>
+        <p class="view"><a href="https://github.com/LevelASMer/OpenSSakdook">View the Project on GitHub <small>LevelASMer/OpenSSakdook</small></a></p>
+        <ul>
+          <li><a href="/command/list/1">Edit <strong>Commands</strong></a></li>
+          <li><a href="/timer/list/1">Edit <strong>Timers</strong></a></li>
+          <li><a href="/filter/list/1">Edit <strong>Filters</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <div metal:define-slot="content">
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="http://github.com/LevelASMer">Level ASMer</a></p>
+        <p><small>Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/static/javascripts/scale.fix.js"></script>
+  </body>
+</html>
